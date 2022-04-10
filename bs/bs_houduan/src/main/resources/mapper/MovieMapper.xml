@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.etoak.mapper.MovieMapper">
+    <!-- 条件查询电影 -->
+    <select id="getMoviesVo" resultType="com.etoak.entity.Movie" parameterType="com.etoak.entity.Movie">
+        select * from movies
+        <where>
+            <if test="id != null and id != '' ">
+                and id=#{id}
+            </if>
+            <if test="name != null and name != '' ">
+                and name like '%${name}%'
+            </if>
+            <if test="protagonist != null and protagonist != '' ">
+                and protagonist like '%${protagonist}%'
+            </if>
+            <if test="type != null and type != '' ">
+                and type like '%${type}%'
+            </if>
+            <if test="startDate == null or startDate == ''">
+                and release_date_str &lt;= now()
+            </if>
+            <if test="startDate != null and startDate != ''">
+                and release_date_str between #{startDate} and
+                <choose>
+                    <when test="endDate != null and endDate != ''">
+                        #{endDate}
+                    </when>
+                    <otherwise>
+                        now()
+                    </otherwise>
+                </choose>
+            </if>
+            and status=1
+        </where>
+    </select>
+
+    <!-- 管理员查询全部电影 -->
+    <select id="getMoviesVoManager" resultType="com.etoak.entity.Movie" parameterType="com.etoak.entity.Movie">
+        select * from movies
+        <where>
+            <if test="id != null and id != '' ">
+                and id=#{id}
+            </if>
+            <if test="name != null and name != '' ">
+                and name like '%${name}%'
+            </if>
+            <if test="protagonist != null and protagonist != '' ">
+                and protagonist like '%${protagonist}%'
+            </if>
+            <if test="type != null and type != '' ">
+                and type like '%${type}%'
+            </if>
+            <if test="startDate == null or startDate == ''">
+                and release_date_str &lt;= now()
+            </if>
+            <if test="startDate != null and startDate != ''">
+                and release_date_str between #{startDate} and
+                <choose>
+                    <when test="endDate != null and endDate != ''">
+                        #{endDate}
+                    </when>
+                    <otherwise>
+                        #{startDate}
+                    </otherwise>
+                </choose>
+            </if>
+        </where>
+        order by id desc
+    </select>
+
+
+    <!-- 更新电影状态 -->
+    <update id="updateStatus" parameterType="int">
+        update movies set status=#{status}
+        where id = #{id}
+    </update>
+
+    <!-- 根据id查询电影 -->
+    <select id="selectById" parameterType="int" resultType="com.etoak.entity.Movie">
+        select * from movies
+        where id=#{id}
+    </select>
+
+    <!-- 根据状态查电影 -->
+    <select id="selectByStatus" resultType="com.etoak.entity.Movie">
+        select * from movies where status=1
+    </select>
+
+    <!-- 查询全部评论 -->
+    <select id="selectAllReview" resultType="com.etoak.entity.ReView" parameterType="int">
+        select re.id as id,user.username as name,ftime_str,content from review re
+        left join
+        t_user user
+        on user.id=re.user_id
+		left join
+		movies m
+		on m.id=re.mid
+		<where>
+            <if test="mid >= 0">
+                and m.id=#{mid}
+            </if>
+        </where>
+
+    </select>
+
+
+
+
+</mapper>

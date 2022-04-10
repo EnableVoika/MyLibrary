@@ -1,0 +1,23 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /ks
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql:///et2108?serverTimezone=UTC
+    username: root
+    password: etoak2108
+  redis:
+    host: 127.0.0.1
+    port: 6379
+
+#mybatis-plus:
+#  configuration:
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+#自定义配置
+image:
+  dir: ./src/main/resources/static/pic
+  path: /files
