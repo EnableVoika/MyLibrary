@@ -18,9 +18,9 @@ import java.util.List;
 public class MovieServiceImpl implements MovieService {
 
     @Autowired
-    MovieMapper movieMapper;
+    private MovieMapper movieMapper;
     @Autowired
-    ReViewMapper reViewMapper;
+    private ReViewMapper reViewMapper;
 
     /**
      * 根据条件查询电影
