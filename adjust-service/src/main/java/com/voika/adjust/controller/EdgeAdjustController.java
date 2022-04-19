@@ -1,11 +1,13 @@
 package com.voika.adjust.controller;
 
+import com.voika.adjust.dao.edgeadjust.po.EdgeAdjustPO;
 import com.voika.adjust.service.EdgeAdjustService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @Slf4j
 @RestController
@@ -16,8 +18,9 @@ public class EdgeAdjustController {
     private EdgeAdjustService edgeAdjustService;
 
     @RequestMapping("/query/condition")
-    public String queryCondition() {
-        return "接口测试成功";
+    public List<EdgeAdjustPO> queryCondition() {
+
+        return edgeAdjustService.queryCondition();
     }
 
 }
