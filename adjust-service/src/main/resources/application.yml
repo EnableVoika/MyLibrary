@@ -1,0 +1,27 @@
+server:
+  port: 8083
+  servlet:
+    context-path: /adjust
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: etoak2108
+    url: jdbc:mysql:///voika?serverTimezone=UTC
+
+pagehelper:
+  # 合理化分页参数,
+  # 当传入的pageNum<=0时, 默认查询第一页;
+  # 当传入的pageNum>总页数时, 默认查询最后一页
+  reasonable: true
+
+logging:
+  level:
+    com.etoak.mapper: debug
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+# 自定义配置区域
+myConfig:
