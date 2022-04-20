@@ -1,17 +1,75 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
-  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.voika.adjust.dao.edgeadjust.mdao.EdgeAdjustDao">
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.voika.adjust.dao.mdao.AdjustDao">
 
-    <resultMap id="edgeMap" type="com.voika.adjust.dao.edgeadjust.po.EdgeAdjustPO">
-        <result property="id" column="id" />
-        <result property="edgeAdjustedDog" column="edge_adjusted_dog" />
-        <result property="edgeAdjustCount" column="edge_adjust_count" />
-        <result property="edgeAdjustDatetime" column="edge_adjust_datetime" />
+    <resultMap id="edgeMap" type="com.voika.adjust.infrastructure.vo.AdjustVO">
+        <result property="adjustedDog" column="adjusted_dog"/>
+        <result property="adjustContentCode" column="adjust_content_code"/>
+        <result property="adjustContent" column="adjust_content"/>
+        <result property="adjustInfo" column="adjust_info"/>
+        <result property="adjustCount" column="adjust_count"/>
+        <result property="adjustDatetime" column="adjust_datetime"/>
     </resultMap>
 
-    <select id="queryCondition" resultMap="edgeMap">
-        select * from edge_adjust_dog;
+    <!-- 分页条件查询 -->
+    <select id="queryCondition" parameterType="com.voika.adjust.dao.po.AdjustCondition" resultMap="edgeMap">
+        select
+        id,
+        adjusted_dog,
+        adjust_content_code,
+        adjust_info,
+        adjust_count,
+        adjust_datetime
+        from adjust_dog
+        <where>
+            <if test="adjustedDog != null and adjustedDog != '' ">
+                and adjusted_dog like concat('%',#{adjustedDog},'%');
+            </if>
+
+            <if test="adjustStartDatetime != null and adjustStartDatetime != '' and adjustEndDatetime != null and adjustEndDatetime != '' ">
+                and adjust_datetime between #{adjustStartDatetime} and #{adjustEndDatetime}
+            </if>
+            and deleted = 0;
+        </where>
     </select>
+
+    <!-- 插入调教记录 -->
+    <insert id="insertAdjustInfo" parameterType="com.voika.adjust.dao.po.AdjustPO">
+        insert into
+        adjust_dog(
+        adjusted_dog,
+        adjust_content_code,
+        adjust_info,
+        adjust_count,
+        adjust_datetime
+        <if test="modifyTime != null and modifyTime != '' ">
+            ,modify_time
+        </if>
+        <if test="creatorId != null and creatorId != '' ">
+            ,creator_id
+        </if>
+        <if test="creatorName != null and creatorName != '' ">
+            ,creator_name
+        </if>
+        )
+        values(
+        #{adjustedDog},
+        #{adjustContentCode},
+        #{adjustInfo},
+        #{adjustCount},
+        #{adjustDatetime}
+        <if test="modifyTime != null and modifyTime != '' ">
+            ,#{modifyTime}
+        </if>
+        <if test="creatorId != null and creatorId != '' ">
+            ,#{creatorId}
+        </if>
+        <if test="creatorName != null and creatorName != '' ">
+            ,#{creatorName}
+        </if>
+        )
+    </insert>
+
 </mapper>
