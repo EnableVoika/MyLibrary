@@ -1,7 +1,7 @@
 package com.voika.adjust.infrastructure.util;
 
 import com.voika.adjust.dao.po.AdjustPO;
-import com.voika.adjust.infrastructure.vo.AdjustVO;
+import com.voika.adjust.infrastructure.vo.adjust.AdjustVO;
 import org.springframework.util.ObjectUtils;
 
 public class AdjustUtil {

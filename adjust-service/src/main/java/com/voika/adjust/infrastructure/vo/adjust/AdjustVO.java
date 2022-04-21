@@ -1,9 +1,11 @@
-package com.voika.adjust.infrastructure.vo;
+package com.voika.adjust.infrastructure.vo.adjust;
 
 import lombok.Data;
 
 @Data
 public class AdjustVO {
+
+    private Integer id;
 
     /**
      * 被命令调教的狗名字

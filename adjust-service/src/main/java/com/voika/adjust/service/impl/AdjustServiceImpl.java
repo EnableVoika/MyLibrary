@@ -3,15 +3,15 @@ package com.voika.adjust.service.impl;
 import com.voika.adjust.dao.mdao.AdjustDao;
 import com.voika.adjust.dao.po.AdjustCondition;
 import com.voika.adjust.dao.po.AdjustPO;
-import com.voika.adjust.infrastructure.vo.AdjustVO;
-import com.voika.adjust.service.EdgeAdjustService;
+import com.voika.adjust.infrastructure.vo.adjust.AdjustVO;
+import com.voika.adjust.service.AdjustService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
 
 @Service
-public class EdgeAdjustServiceImpl implements EdgeAdjustService {
+public class AdjustServiceImpl implements AdjustService {
 
     @Resource
     private AdjustDao edgeAdjustDao;
@@ -33,5 +33,15 @@ public class EdgeAdjustServiceImpl implements EdgeAdjustService {
     @Override
     public int insertAdjustInfo(AdjustPO po) {
         return edgeAdjustDao.insertAdjustInfo(po);
+    }
+
+    /**
+     * 逻辑删除调教记录
+     * @param id
+     * @return
+     */
+    @Override
+    public int delAdjustInfo(int id) {
+        return edgeAdjustDao.delAdjustInfo(id);
     }
 }

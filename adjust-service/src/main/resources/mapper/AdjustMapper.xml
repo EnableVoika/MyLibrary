@@ -4,8 +4,9 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.voika.adjust.dao.mdao.AdjustDao">
 
-    <resultMap id="edgeMap" type="com.voika.adjust.infrastructure.vo.AdjustVO">
+    <resultMap id="adjustMap" type="com.voika.adjust.infrastructure.vo.adjust.AdjustVO">
         <result property="adjustedDog" column="adjusted_dog"/>
+        <result property="id" column="id"/>
         <result property="adjustContentCode" column="adjust_content_code"/>
         <result property="adjustContent" column="adjust_content"/>
         <result property="adjustInfo" column="adjust_info"/>
@@ -14,7 +15,7 @@
     </resultMap>
 
     <!-- 分页条件查询 -->
-    <select id="queryCondition" parameterType="com.voika.adjust.dao.po.AdjustCondition" resultMap="edgeMap">
+    <select id="queryCondition" parameterType="com.voika.adjust.dao.po.AdjustCondition" resultMap="adjustMap">
         select
         id,
         adjusted_dog,
@@ -71,5 +72,10 @@
         </if>
         )
     </insert>
+
+    <!-- 逻辑删除调教记录 -->
+    <update id="delAdjustInfo" parameterType="int">
+        update adjust_dog set deleted = 1 where id = #{id};
+    </update>
 
 </mapper>
