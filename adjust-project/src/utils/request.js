@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const request = axios.create({
-    baseURL:'http://localhost:8083/adjust/',
+    baseURL:'http://52i13683m0.zicp.vip/adjust/',
     timeout:5000
 })
 

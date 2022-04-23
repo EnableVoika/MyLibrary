@@ -40,4 +40,10 @@ public class AdjustPO extends BasePO {
      */
     private String adjustDatetime;
 
+    @Override
+    public int hashCode() {
+        return adjustedDog.hashCode() + adjustContentCode +
+                adjustInfo.hashCode() + adjustCount + adjustDatetime.hashCode();
+    }
+
 }

@@ -8,6 +8,9 @@ spring:
     username: root
     password: etoak2108
     url: jdbc:mysql:///voika?serverTimezone=UTC
+  redis:
+    host: 127.0.0.1
+    port: 6379
 
 pagehelper:
   # 合理化分页参数,

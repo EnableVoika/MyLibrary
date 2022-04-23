@@ -1,6 +1,7 @@
 package com.voika.adjust.service.impl;
 
 import com.voika.adjust.dao.mdao.AdjustDao;
+import com.voika.adjust.dao.po.AdjustCodeAndValue;
 import com.voika.adjust.dao.po.AdjustCondition;
 import com.voika.adjust.dao.po.AdjustPO;
 import com.voika.adjust.infrastructure.vo.adjust.AdjustVO;
@@ -43,5 +44,24 @@ public class AdjustServiceImpl implements AdjustService {
     @Override
     public int delAdjustInfo(int id) {
         return edgeAdjustDao.delAdjustInfo(id);
+    }
+
+    /**
+     * 更新狗子调教记录
+     * @param po
+     * @return
+     */
+    @Override
+    public int updateAdjustInfoById(AdjustPO po) {
+        return edgeAdjustDao.updateAdjustInfoById(po);
+    }
+
+    /**
+     * 获得调教code和value
+     * @return
+     */
+    @Override
+    public List<AdjustCodeAndValue> getCodeList() {
+        return edgeAdjustDao.getCodeList();
     }
 }

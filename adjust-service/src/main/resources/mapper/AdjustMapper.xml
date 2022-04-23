@@ -75,7 +75,25 @@
 
     <!-- 逻辑删除调教记录 -->
     <update id="delAdjustInfo" parameterType="int">
-        update adjust_dog set deleted = 1 where id = #{id};
+        update adjust_dog
+        set deleted = 1
+        where id = #{id};
     </update>
+
+    <!-- 更新狗子调教记录 -->
+    <update id="updateAdjustInfoById" parameterType="com.voika.adjust.dao.po.AdjustPO">
+        update adjust_dog
+        set adjusted_dog        = #{adjustedDog},
+            adjust_content_code = #{adjustContentCode},
+            adjust_info         = #{adjustInfo},
+            adjust_count        = #{adjustCount}
+        WHERE id = #{id};
+    </update>
+
+    <!--  获得调教code和value -->
+    <select id="getCodeList" resultType="com.voika.adjust.dao.po.AdjustCodeAndValue">
+        SELECT code,value
+        FROM voika.code_value;
+    </select>
 
 </mapper>

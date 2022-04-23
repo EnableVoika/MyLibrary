@@ -68,23 +68,19 @@ export default {
     },
 
 
-    selectMovieById(id){
+    /** 获取 code and value */
+    selectCodeAndValue(){
         return request({
-            url:`movie/selectById?id=${id}`,
+            url:`codeAndValue`,
             method:'get'
         })
     },
 
-    addMovieReview(mid,userId,name,content){
+    updateAdjustInfo(pojo){
         return request({
-            url:'movie/addFilmReview',
+            url:'update/adjust/info',
             method:'post',
-            data:{
-                mid,
-                name,
-                content,
-                userId,
-            },
+            data:pojo
         })
     },
 

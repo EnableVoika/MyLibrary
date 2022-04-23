@@ -5,6 +5,8 @@ import lombok.Data;
 @Data
 public class AdjustDTO {
 
+    private Integer id;
+
     /**
      * 被命令调教的狗名字
      */

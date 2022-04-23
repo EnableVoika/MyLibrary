@@ -55,16 +55,24 @@
                     <el-input v-model="form.adjustedDog" autocomplete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="任务内容" :label-width="formLabelWidth">
-                    <el-select v-model="form.region" placeholder="请选调教内容">
-                        <el-option label="边缘调教" value="1"></el-option>
-                        <el-option label="捶蛋" value="2"></el-option>
+                    <el-select
+                        v-model="form.adjustContentCode"
+                        :placeholder="form.adjustContent"
+                    >
+                        <el-option
+                            v-for="item in codeAndValue"
+                            :key="item.code"
+                            :label="item.value"
+                            :value="item.code"
+                        ></el-option>
+                        <!-- <el-option label="捶蛋" value="2"></el-option>
                         <el-option label="野裸" value="3"></el-option>
                         <el-option label="狗姿撒尿" value="4"></el-option>
                         <el-option label="榨精" value="5"></el-option>
                         <el-option label="憋尿" value="6"></el-option>
                         <el-option label="尿道开发" value="7"></el-option>
                         <el-option label="龟头责" value="8"></el-option>
-                        <el-option label="屁眼开发" value="9"></el-option>
+                        <el-option label="屁眼开发" value="9"></el-option> -->
                     </el-select>
                 </el-form-item>
                 <el-form-item label="调教详情" :label-width="formLabelWidth">
@@ -89,6 +97,7 @@ export default {
         return {
             formLabelWidth: "120px",
             list: [],
+            codeAndValue: [],
             page: 1,
             itemsPerPage: 3,
             total: null,
@@ -109,7 +118,7 @@ export default {
         handleEdit(index, row) {
             this.dialogFormVisible = true;
             this.form = row;
-            //console.log(this.form)
+            console.log(this.form);
             //console.log(index, row);
         },
         /** 删除按钮 */
@@ -124,16 +133,16 @@ export default {
                 }
             )
                 .then(() => {
-                    let resp = null
-                    let msg = ''
+                    let resp = null;
+                    let msg = "";
                     dao.delAdjustInfo(row.id).then((res) => {
-                        resp = res.data
+                        resp = res.data;
                     });
                     this.fetchData();
                     this.$message({
                         type: "success",
                         message: "虐狗成功～～等着狗子回来发现主子给它的礼物～!",
-                        time:10
+                        time: 10,
                     });
                 })
                 .catch(() => {
@@ -144,24 +153,46 @@ export default {
                     });
                 });
             // console.log(index, row);
-            
         },
         /** 弹框中的取消按钮 */
         dialogCancle() {
             this.dialogFormVisible = false;
-            this.fetchData();
+            (this.form = {
+                id: "",
+                adjustContent: "",
+                adjustContentCode: "",
+                adjustCount: "",
+                adjustDatetime: "",
+                adjustInfo: "",
+                adjustedDog: "",
+            }),
+                this.fetchData();
         },
         /** 弹框中的确定按钮 */
         dialogSure() {
             this.dialogFormVisible = false;
-            this.fetchData();
+            console.log(this.form)
+            dao.updateAdjustInfo(this.form).then((res) => {
+                console.log(res.data.flag)
+                if (res.data.flag) {
+                    this.$message("修改成功！已邮件形式通知了狗子了，给狗子一个惊喜～");
+                    this.fetchData();
+                } else {
+                    this.$message(res.data.msg);
+                    this.fetchData();
+                }
+            });
+            
         },
 
         fetchData() {
             dao.selectPopular(this.page, this.itemsPerPage).then((response) => {
-                console.log(response);
                 this.list = response.data.data;
                 this.total = response.data.total;
+            });
+            /** 获取code and value */
+            dao.selectCodeAndValue().then((res) => {
+                this.codeAndValue = res.data.data;
             });
         },
 
