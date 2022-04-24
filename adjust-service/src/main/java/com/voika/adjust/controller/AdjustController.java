@@ -119,16 +119,6 @@ public class AdjustController {
         }
         AdjustPO po = new AdjustPO();
         BeanUtils.copyProperties(dto,po);
-        String value = redis.opsForValue().get("updateAdjustInfo_" + id);
-        if (StringUtils.isEmpty(value)) {
-            redis.opsForValue().set("updateAdjustInfo_"+id,String.valueOf(po.hashCode()),2400, TimeUnit.SECONDS);
-        }else {
-            int hashCode = po.hashCode();
-            if (String.valueOf(hashCode).equals(value)) {
-                return Response.error("未做任何修改");
-            }
-            redis.delete("updateAdjustInfo_"+id);
-        }
         int i = adjustService.updateAdjustInfoById(po);
         if (i <= 0) return Response.error("未做任何修改");
         return Response.success("接口测试成功");
