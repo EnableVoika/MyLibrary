@@ -93,7 +93,7 @@
     <!--  获得调教code和value -->
     <select id="getCodeList" resultType="com.voika.adjust.dao.po.AdjustCodeAndValue">
         SELECT code,value
-        FROM voika.code_value;
+        FROM code_value;
     </select>
 
 </mapper>

@@ -7,7 +7,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
     password: etoak2108
-    url: jdbc:mysql:///voika?serverTimezone=UTC
+    url: jdbc:mysql:///adjust?serverTimezone=UTC
   redis:
     host: 127.0.0.1
     port: 6379
