@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.voika.dao.mapper.AdjustInfoMapper">
+    <resultMap id="adjustInfoMap" type="com.voika.controller.vo.AdjustInfoVO">
+        <result property="id" column="id" />
+        <result property="adjustedDog" column="adjusted_dog" />
+        <result property="adjustContentCode" column="adjust_content_code" />
+        <result property="adjustInfo" column="adjust_info" />
+        <result property="adjustCount" column="adjust_count" />
+        <result property="effectiveness" column="effectiveness" />
+        <result property="adjustDatetime" column="adjust_datetime" />
+        <result property="deleted" column="deleted" />
+    </resultMap>
+    <select id="searchAdjustInfo" parameterType="com.voika.controller.dto.AdjustInfoCondition"
+            resultMap="adjustInfoMap">
+        select *
+        from tb_adjust_info
+        <where>
+            <if test="role == null or role != 1">
+                deleted = 0
+            </if>
+        </where>
+
+    </select>
+</mapper>

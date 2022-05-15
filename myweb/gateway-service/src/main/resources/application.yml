@@ -1,0 +1,31 @@
+server:
+  port: 63798
+
+spring:
+  application:
+    name: gateway-service
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 124.221.243.242:8848
+        namespace: voika
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+        - id: login-service
+          uri: http://localhost:56789
+          predicates:
+            - Path=/voika/login
+#          filters:
+#            - StripPrefix=1
+
+        - id: adjust-service
+          uri: http://localhost:56790
+          predicates:
+              - Path=/voika/adjust
+#          filters:
+#            - StripPrefix=1
+      default-filters:
+        - StripPrefix=1

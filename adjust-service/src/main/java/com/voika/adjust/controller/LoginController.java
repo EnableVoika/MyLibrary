@@ -31,11 +31,6 @@ public class LoginController {
             log.info("账号不存在");
             return Response.error("账号不存在");
         }
-        // 密码为 null 时的逻辑
-        if (userObj.getPassword() == null && dto.getPassword() == userObj.getPassword()) {
-            log.info("用户登录成功,密码是null");
-            return Response.success("登录成功！",userObj);
-        }
         if (dto.getPassword() != null && dto.getPassword().equals(userObj.getPassword())) {
             log.info("用户登录成功");
             return Response.success("登录成功！",userObj);

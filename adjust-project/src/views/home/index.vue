@@ -11,7 +11,7 @@
                 </template>
             </el-table-column>
             <!-- 名字和详情 -->
-            <el-table-column label="狗子" width="180">
+            <el-table-column label="奴隶" width="180">
                 <template slot-scope="scope">
                     <el-popover trigger="hover" placement="top">
                         <p>姓名: {{ scope.row.adjustedDog }}</p>
@@ -46,12 +46,12 @@
         </el-table>
 
         <!-- 弹框修改 -->
-        <el-dialog title="狗子调教不容易，主子谨慎编辑" :visible.sync="dialogFormVisible">
+        <el-dialog title="魔王龙调教不容易，主子谨慎编辑" :visible.sync="dialogFormVisible">
             <el-form :model="form">
                 <el-form-item label="调教日期" :label-width="formLabelWidth">
                     <el-input v-model="form.adjustDatetime" autocomplete="off"></el-input>
                 </el-form-item>
-                <el-form-item label="狗子" :label-width="formLabelWidth">
+                <el-form-item label="奴隶" :label-width="formLabelWidth">
                     <el-input v-model="form.adjustedDog" autocomplete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="任务内容" :label-width="formLabelWidth">
@@ -124,11 +124,11 @@ export default {
         /** 删除按钮 */
         handleDelete(index, row) {
             this.$confirm(
-                "此操作将永久删除狗子的调教记录，狗子辛苦的调教全白费了！狗子会骚死的！！主子要三思！！, 真的要折磨狗子看着狗子发骚取悦主子么?",
+                "此操作将永久删除魔王龙的调教记录，魔王龙辛苦的调教全白费了！魔王龙会骚死的！！陛下要三思！！, 真的要折磨魔王龙看着魔王龙发骚取悦陛下么?",
                 "提示",
                 {
-                    confirmButtonText: "那当然，虐狗逗狗多有意思～",
-                    cancelButtonText: "狗子也可怜，饶了它这一次吧",
+                    confirmButtonText: "那当然，魔王龙的龙根太强大，需要重新驯服",
+                    cancelButtonText: "魔王龙龙根有悔改的意思，饶了它这一次吧",
                     type: "warning",
                 }
             )
@@ -141,7 +141,7 @@ export default {
                     this.fetchData();
                     this.$message({
                         type: "success",
-                        message: "虐狗成功～～等着狗子回来发现主子给它的礼物～!",
+                        message: "重新驯服开始～～等着魔王龙回来发现陛下给它的礼物～!",
                         time: 10,
                     });
                 })
@@ -149,7 +149,7 @@ export default {
                     this.fetchData();
                     this.$message({
                         type: "info",
-                        message: "这次赦免狗子了",
+                        message: "这次赦免魔王龙了",
                     });
                 });
             // console.log(index, row);
@@ -175,7 +175,7 @@ export default {
             dao.updateAdjustInfo(this.form).then((res) => {
                 console.log(res.data.flag)
                 if (res.data.flag) {
-                    this.$message("修改成功！已邮件形式通知了狗子了，给狗子一个惊喜～");
+                    this.$message("修改成功！已邮件形式通知了魔王龙了，给魔王龙一个惊喜～");
                     this.fetchData();
                 } else {
                     this.$message(res.data.msg);

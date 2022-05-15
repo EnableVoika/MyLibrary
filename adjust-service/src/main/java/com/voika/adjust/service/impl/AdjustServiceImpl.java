@@ -9,7 +9,9 @@ import com.voika.adjust.service.AdjustService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class AdjustServiceImpl implements AdjustService {
@@ -17,8 +19,11 @@ public class AdjustServiceImpl implements AdjustService {
     @Resource
     private AdjustDao edgeAdjustDao;
 
+    // 缓存
+    private static Map<String,Object> cache = new HashMap<>();
+
     /**
-     * 分页查询边缘调教数据
+     * 分页查询调教数据
      * @return
      */
     @Override
@@ -33,6 +38,7 @@ public class AdjustServiceImpl implements AdjustService {
      */
     @Override
     public int insertAdjustInfo(AdjustPO po) {
+
         return edgeAdjustDao.insertAdjustInfo(po);
     }
 

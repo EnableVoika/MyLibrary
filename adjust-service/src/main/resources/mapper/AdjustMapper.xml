@@ -23,7 +23,7 @@
         adjust_info,
         adjust_count,
         adjust_datetime
-        from adjust_dog
+        from tb_adjust_info
         <where>
             <if test="adjustedDog != null and adjustedDog != '' ">
                 and adjusted_dog like concat('%',#{adjustedDog},'%');
@@ -39,7 +39,7 @@
     <!-- 插入调教记录 -->
     <insert id="insertAdjustInfo" parameterType="com.voika.adjust.dao.po.AdjustPO">
         insert into
-        adjust_dog(
+        tb_adjust_info(
         adjusted_dog,
         adjust_content_code,
         adjust_info,
@@ -75,14 +75,14 @@
 
     <!-- 逻辑删除调教记录 -->
     <update id="delAdjustInfo" parameterType="int">
-        update adjust_dog
+        update tb_adjust_info
         set deleted = 1
         where id = #{id};
     </update>
 
     <!-- 更新狗子调教记录 -->
     <update id="updateAdjustInfoById" parameterType="com.voika.adjust.dao.po.AdjustPO">
-        update adjust_dog
+        update tb_adjust_info
         set adjusted_dog        = #{adjustedDog},
             adjust_content_code = #{adjustContentCode},
             adjust_info         = #{adjustInfo},
@@ -92,8 +92,8 @@
 
     <!--  获得调教code和value -->
     <select id="getCodeList" resultType="com.voika.adjust.dao.po.AdjustCodeAndValue">
-        SELECT code,value
-        FROM code_value;
+        SELECT code, value
+        FROM tb_code_value;
     </select>
 
 </mapper>

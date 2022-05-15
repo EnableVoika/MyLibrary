@@ -6,12 +6,13 @@ server:
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql:///et2108?serverTimezone=UTC
+    url: jdbc:mysql://124.221.243.242/et2108?serverTimezone=UTC
     username: root
-    password: etoak2108
+    password: 3865571999@Ghy
   redis:
-    host: 127.0.0.1
+    host: 124.221.243.242
     port: 6379
+    #password: etoak
 
 #mybatis-plus:
 #  configuration:

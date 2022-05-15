@@ -3,6 +3,9 @@ package com.voika.adjust.dao.po;
 import com.voika.adjust.infrastructure.BasePO;
 import lombok.Data;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 @Data
 public class AdjustPO extends BasePO {
 
@@ -44,6 +47,17 @@ public class AdjustPO extends BasePO {
     public int hashCode() {
         return adjustedDog.hashCode() + adjustContentCode +
                 adjustInfo.hashCode() + adjustCount + adjustDatetime.hashCode();
+    }
+
+
+    public AdjustPO init() {
+        this.adjustContentCode = 1;
+        this.adjustedDog = "翊";
+        this.adjustCount = 0;
+        this.adjustDatetime =
+                new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+        this.adjustInfo = "日常完成主子的调教任务";
+        return this;
     }
 
 }

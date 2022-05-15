@@ -51,14 +51,7 @@ public class AdjustController {
     @PostMapping("/insert/adjustInfo")
     public JsonResponse insertAdjustInfo(@RequestBody AdjustDTO dto) {
 
-        String adjustedDog = dto.getAdjustedDog();
-        Integer adjustContentCode = dto.getAdjustContentCode();
-        String adjustInfo = dto.getAdjustInfo();
-        Integer adjustCount = dto.getAdjustCount();
-        String adjustDatetime = dto.getAdjustDatetime();
-
-
-        AdjustPO po = new AdjustPO();
+        AdjustPO po = new AdjustPO().init();
         BeanUtils.copyProperties(dto,po);
         int result = -1;
         try {

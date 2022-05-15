@@ -2,7 +2,7 @@
     <div class="login-container">
 
         <el-form ref="etoak" :rules="rules" :model="form" label-width="90px" class="login-form">
-            <h2 class="login-title">调教网站，请登录</h2>
+            <h2 class="login-title">淫荡魔王龙的强大龙根净化驯服活动，陛下请登录</h2>
 
             <el-form-item label="用户姓名" prop="username">
                 <el-input v-model="form.username"></el-input>

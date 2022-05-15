@@ -1,15 +1,15 @@
 server:
-  port: 8083
+  port: 30793
   servlet:
     context-path: /adjust
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
-    password: etoak2108
-    url: jdbc:mysql:///adjust?serverTimezone=UTC
+    password: 3865571999@Ghy
+    url: jdbc:mysql://124.221.243.242/voika?serverTimezone=UTC
   redis:
-    host: 127.0.0.1
+    host: 124.221.243.242
     port: 6379
 
 pagehelper:

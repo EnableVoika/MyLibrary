@@ -24,11 +24,11 @@ public class UploadController {
 
   /** 读取application.yml的配置项 */
   @Value("${image.dir}")
-  String uploadDir;
+  private String uploadDir;
 
   /** 读取application.yml的配置项 */
   @Value("${image.path}")
-  String pathPrefix;
+  private String pathPrefix;
 
   /** JPG图片类型的Content-Type */
   public static final String JPG = "image/jpeg";
