@@ -1,0 +1,12 @@
+server:
+  port: 56789
+  servlet:
+    context-path: /voika
+spring:
+  application:
+    name: voika
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: 3865571999@Ghy
+    url: jdbc:mysql://124.221.243.242/voika?serverTimezone=UTC
