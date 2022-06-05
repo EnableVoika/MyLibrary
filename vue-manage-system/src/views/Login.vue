@@ -43,15 +43,14 @@ import { useStore } from "vuex";
 import { useRouter } from "vue-router";
 import { ElMessage } from "element-plus";
 import dao from "../api/dao";
+import _Message from 'element-plus/lib/el-message';
 
 export default {
-    created() {
-        
-    },
+    created() {},
     data() {
         return {
             router: useRouter(),
-            store:useStore(),
+            store: useStore(),
             userobj: {
                 username: "",
                 password: "",
@@ -72,10 +71,12 @@ export default {
         login() {
             dao.login(this.userobj).then((resp) => {
                 //console.log("dasddadaadsd");
-                console.log(resp);
-                if (resp.status == true) {
+                //console.log(resp.data);
+                if (resp.ref == true) {
                     ElMessage.success(resp.msg);
                     localStorage.setItem("ms_username", this.userobj.username);
+                    localStorage.setItem("Authorization", resp.data.token);
+                    //sessionStorage.setItem("Authorization",resp.data.token)
                     this.router.push("/");
                 } else {
                     ElMessage.error(resp.msg);
@@ -83,6 +84,11 @@ export default {
                 }
             });
         },
+    },
+    created() {
+        //let myName=JSON.parse(sessionStorage.getItem("Authorization"));
+        // console.log(myName)
+        // console.log(sessionStorage)
     },
     setup() {
         const router = useRouter();

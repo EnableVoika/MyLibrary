@@ -9,50 +9,96 @@
         </div>
         <div class="container">
             <div class="handle-box">
-                <el-select v-model="query.address" placeholder="地址" class="handle-select mr10">
+                <el-select
+                    v-model="query.address"
+                    placeholder="地址"
+                    class="handle-select mr10"
+                >
                     <el-option key="1" label="广东省" value="广东省"></el-option>
                     <el-option key="2" label="湖南省" value="湖南省"></el-option>
                 </el-select>
-                <el-input v-model="query.name" placeholder="用户名" class="handle-input mr10"></el-input>
-                <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
+                <el-input
+                    v-model="query.name"
+                    placeholder="用户名"
+                    class="handle-input mr10"
+                ></el-input>
+                <el-button type="primary" icon="el-icon-search" @click="handleSearch"
+                    >搜索</el-button
+                >
             </div>
-            <el-table :data="tableData" border class="table" ref="multipleTable" header-cell-class-name="table-header">
-                <el-table-column prop="id" label="ID" width="55" align="center"></el-table-column>
-                 <el-table-column label="头像(查看大图)" align="center">
+            <el-table
+                :data="tableData"
+                border
+                class="table"
+                ref="multipleTable"
+                header-cell-class-name="table-header"
+            >
+                <el-table-column
+                    prop="id"
+                    label="ID"
+                    width="55"
+                    align="center"
+                ></el-table-column>
+                <el-table-column label="头像(查看大图)" align="center">
                     <template #default="scope">
-                        <el-image class="table-td-thumb" :src="scope.row.thumb" :preview-src-list="[scope.row.thumb]">
+                        <el-image
+                            class="table-td-thumb"
+                            :src="scope.row.thumb"
+                            :preview-src-list="[scope.row.thumb]"
+                        >
                         </el-image>
                     </template>
                 </el-table-column>
-                <el-table-column prop="name" label="用户名"></el-table-column>
-                <el-table-column prop="date" label="时间"></el-table-column>
-                <el-table-column label="次数">
-                    <template #default="scope">￥{{ scope.row.money }}</template>
+                <el-table-column prop="adjustedDog" label="奴隶名字"></el-table-column>
+                 <el-table-column prop="adjustContentValue" label="调教内容"></el-table-column>
+                 <el-table-column prop="adjustInfo" label="调教内容详细描述"></el-table-column>
+                <el-table-column prop="adjustDatetime" label="调教时间"></el-table-column>
+                <el-table-column label="调教次数">
+                    <template #default="scope">{{ scope.row.adjustCount }}</template>
                 </el-table-column>
-                <el-table-column prop="address" label="地点"></el-table-column>
-                <el-table-column label="状态" align="center">
+                <!-- <el-table-column prop="address" label="地点"></el-table-column> -->
+                 <el-table-column prop="effectivenessValue" label="本次调教是否有效"></el-table-column>
+                <!-- <el-table-column label="状态" align="center">
                     <template #default="scope">
-                        <el-tag :type="
+                        <el-tag
+                            :type="
                                 scope.row.state === '成功'
                                     ? 'success'
                                     : scope.row.state === '失败'
                                     ? 'danger'
                                     : ''
-                            ">{{ scope.row.state }}</el-tag>
+                            "
+                            >{{ scope.row.state }}</el-tag
+                        >
                     </template>
-                </el-table-column>
+                </el-table-column> -->
                 <el-table-column label="操作" width="180" align="center">
                     <template #default="scope">
-                        <el-button type="text" icon="el-icon-edit" @click="handleEdit(scope.$index, scope.row)">编辑
+                        <el-button
+                            type="text"
+                            icon="el-icon-edit"
+                            @click="handleEdit(scope.$index, scope.row)"
+                            >编辑
                         </el-button>
-                        <el-button type="text" icon="el-icon-delete" class="red"
-                            @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+                        <el-button
+                            type="text"
+                            icon="el-icon-delete"
+                            class="red"
+                            @click="handleDelete(scope.$index, scope.row)"
+                            >删除</el-button
+                        >
                     </template>
                 </el-table-column>
             </el-table>
             <div class="pagination">
-                <el-pagination background layout="total, prev, pager, next" :current-page="query.pageIndex"
-                    :page-size="query.pageSize" :total="pageTotal" @current-change="handlePageChange"></el-pagination>
+                <el-pagination
+                    background
+                    layout="total, prev, pager, next"
+                    :current-page="query.pageIndex"
+                    :page-size="query.pageSize"
+                    :total="pageTotal"
+                    @current-change="handlePageChange"
+                ></el-pagination>
             </div>
         </div>
 
@@ -84,13 +130,27 @@ import dao, { fetchData } from "../../api/dao";
 export default {
     data() {
         return {
-
-        }
+            tableData:[],
+            condition: {
+                pageNum: 1,
+                pageSize: 5,
+            },
+        };
     },
     methods: {
         fetchData() {
-            
-        }
+            dao.searchAdjustInfo(this.condition).then((resp) => {
+                if(resp.ref === false) {
+                }
+                this.tableData = resp.data
+            });
+        },
+    },
+    created() {
+        
+        // let token = localStorage.getItem("Authorization");
+        // sessionStorage.setItem("Authorization", token);
+        this.fetchData();
     },
     name: "basetable",
     setup() {

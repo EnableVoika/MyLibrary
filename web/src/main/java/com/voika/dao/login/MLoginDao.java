@@ -1,12 +1,11 @@
-package com.voika.dao.login.repository;
+package com.voika.dao.login;
 
 import com.voika.controller.login.po.AccountPO;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
-import java.util.Set;
 
-public interface LoginRepository {
+public interface MLoginDao {
 
     /**
      * 用户数据字典
@@ -18,17 +17,15 @@ public interface LoginRepository {
     /**
      * 查询用户对应的角色
      */
-    Set<String> searchRole(Integer accountId);
-    Set<String> searchRole(String username);
+    List<String> searchRole(@Param("accountId") Integer accountId);
 
     /**
      * 查询角色对应的权限
      * @param roleId
      * @return
      */
-    Set<String> searchPerms(Integer roleId);
-    Set<String> searchPerms(String username);
+    List<String> searchPerms(@Param("roleId") Integer roleId);
 
-    Set<Integer> roleIds(Integer accountId);
+    List<Integer> roleIds(@Param("accountId") Integer accountId);
 
 }

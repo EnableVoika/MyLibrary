@@ -1,12 +1,25 @@
 server:
-  port: 56789
   servlet:
     context-path: /voika
+  port: 56789
 spring:
-  application:
-    name: voika
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
     password: 3865571999@Ghy
     url: jdbc:mysql://124.221.243.242/voika?serverTimezone=UTC
+    hikari:
+      # 链接池最大链接数，默认是 10
+      maximum-pool-size: 60
+      # 连接超时时间，默认 30000(30 秒)
+      connection-timeout: 60000
+      # 空闲链接存活最大时间，默认 600000(10 分钟)
+      idle-timeout: 60000
+      # 链接将被测试活动的最大时间量
+      validation-timeout: 3000
+      # 此属性控制池中链接的最长生命周期，值 0 表示无限生命周期，默认 1800000(30 分钟)
+      max-lifetime: 60000
+      # 链接到数据库时等待的最长时间(秒)
+      login-timeout: 5
+      # 池中维护的最小空闲链接数
+      minimum-idle: 10

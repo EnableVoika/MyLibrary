@@ -4,15 +4,33 @@ export default {
     // 登录
     login(pojo) {
         return request({
-            url:'/login',
+            url:'login',
             method:'post',
             data:pojo
         })
     },
-    // 调教记录查询
+
+    // 记录查询
     searchAdjustInfo(condition) {
         return request({
-            url:'/'
+            url:'/furry/adjust/search/condition',
+            method:'post',
+            headers:{
+                'Authorization':localStorage.getItem('Authorization')
+            },
+            data:condition,
+            
+        })
+    },
+
+    // 退出登录
+    loginout() {
+        return request({
+            url:'http://localhost:56789/voika/login/loginout',
+            method:'get',
+            headers:{
+                'Authorization':localStorage.getItem('Authorization')
+            }
         })
     }
 }

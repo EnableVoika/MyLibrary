@@ -11,13 +11,13 @@
                 and id=#{id}
             </if>
             <if test="name != null and name != '' ">
-                and name like '%${name}%'
+                and name like concat('%',#{name},'%')
             </if>
             <if test="protagonist != null and protagonist != '' ">
-                and protagonist like '%${protagonist}%'
+                and protagonist like concat('%',#{protagonist},'%')
             </if>
             <if test="type != null and type != '' ">
-                and type like '%${type}%'
+                and type like concat('%',#{type},'%')
             </if>
             <if test="startDate == null or startDate == ''">
                 and release_date_str &lt;= now()
@@ -45,13 +45,13 @@
                 and id=#{id}
             </if>
             <if test="name != null and name != '' ">
-                and name like '%${name}%'
+                and name like concat('%',#{name},'%')
             </if>
             <if test="protagonist != null and protagonist != '' ">
-                and protagonist like '%${protagonist}%'
+                and protagonist like concat('%',#{protagonist},'%')
             </if>
             <if test="type != null and type != '' ">
-                and type like '%${type}%'
+                and type like concat('%',#{type},'%')
             </if>
             <if test="startDate == null or startDate == ''">
                 and release_date_str &lt;= now()

@@ -25,6 +25,7 @@
                 <div class="user-avator">
                     <img src="../assets/img/51ACCDFE2511F8A0747ACB5C9D143E7A.jpg" />
                 </div>
+                &nbsp;&nbsp;
                 <!-- 用户名下拉菜单 -->
                 <el-dropdown class="user-name" trigger="click" @command="handleCommand">
                     <span class="el-dropdown-link">
@@ -43,6 +44,7 @@
                             <el-dropdown-item divided command="loginout"
                                 >退出登录</el-dropdown-item
                             >
+                            <!-- command="loginout" -->
                         </el-dropdown-menu>
                     </template>
                 </el-dropdown>
@@ -54,7 +56,19 @@
 import { computed, onMounted } from "vue";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
+import dao from "../api/dao";
+import _Message from "element-plus/lib/el-message";
 export default {
+    methods: {
+        // loginout() {
+        //     dao.loginout().then(resp => {
+        //         // console.log(resp)
+        //     })
+        //     // console.log('退出按钮')
+        //     localStorage.removeItem("Authorization");
+        // }
+    },
+
     setup() {
         const username = localStorage.getItem("ms_username");
         const message = 2;
@@ -77,6 +91,10 @@ export default {
         const handleCommand = (command) => {
             if (command == "loginout") {
                 localStorage.removeItem("ms_username");
+                localStorage.removeItem("Authorization");
+                dao.loginout().then((resp) => {
+                    _Message.warning({ message: resp.msg });
+                });
                 router.push("/login");
             } else if (command == "user") {
                 router.push("/user");

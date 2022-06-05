@@ -1,12 +1,28 @@
 package com.voika.service.login;
 
-import com.voika.dao.login.po.AccountPO;
+import cn.hutool.core.bean.BeanUtil;
+import com.voika.controller.login.dto.AccountDTO;
+import com.voika.controller.login.po.AccountPO;
+import com.voika.dao.login.MLoginDao;
+import com.voika.dao.login.repository.LoginRepository;
+import org.springframework.stereotype.Service;
 
-public interface LoginService {
+import javax.annotation.Resource;
+import java.util.List;
+
+@Service
+public class LoginService {
+
+    @Resource
+    private LoginRepository loginRepository;
 
     /**
-     * 获取用户身份信息
+     * 用户数据字典
      */
-    AccountPO getAccountInfo(AccountPO po);
+    public List<AccountPO> accountDir(AccountDTO dto) {
+        AccountPO po = new AccountPO();
+        BeanUtil.copyProperties(dto,po);
+        return loginRepository.accountDir(po);
+    }
 
 }

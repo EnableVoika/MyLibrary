@@ -9,6 +9,7 @@ import Home from './views/home'
 import Login from './views/login'
 import Manager from './views/manager'
 import Putong from './views/home copy'
+import WeChat from './views/wechat/index.vue'
 
 
 
@@ -49,6 +50,12 @@ export default new Router({
             name:'putong',
             component:Putong,
             meta:{title:'普通'}
+        },
+        {
+            path:'/wechat',
+            name:'wechat',
+            component:WeChat,
+            meta:{title:'微信扫码'}
         },
 
     ]
