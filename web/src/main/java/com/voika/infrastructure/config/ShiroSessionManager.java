@@ -17,6 +17,8 @@ import java.util.Enumeration;
 @Component
 public class ShiroSessionManager extends DefaultWebSessionManager {
 
+
+
     @Override
     protected Serializable getSessionId(ServletRequest request, ServletResponse response) {
         String sessionId = WebUtils.toHttp(request).getHeader("Authorization");

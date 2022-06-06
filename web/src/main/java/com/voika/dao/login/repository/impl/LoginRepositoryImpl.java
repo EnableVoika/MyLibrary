@@ -1,11 +1,12 @@
 package com.voika.dao.login.repository.impl;
 
 import cn.hutool.core.collection.CollectionUtil;
-import com.voika.controller.login.po.AccountPO;
+import com.voika.dao.login.po.AccountPO;
 import com.voika.dao.login.MLoginDao;
 import com.voika.dao.login.repository.LoginRepository;
 import com.voika.infrastructure.config.StringUtil;
 import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.HashSet;

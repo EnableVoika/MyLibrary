@@ -60,6 +60,7 @@ public class MVCConfig {
 
     @Bean("sessionManager")
     public SessionManager sessionManager() {
+        // 使用shiro的缓存
         shiroSessionManager.setSessionDAO(new EnterpriseCacheSessionDAO());
         return shiroSessionManager;
     }

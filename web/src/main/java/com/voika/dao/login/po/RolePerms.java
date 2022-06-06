@@ -1,4 +1,4 @@
-package com.voika.controller.login.po;
+package com.voika.dao.login.po;
 
 import lombok.Data;
 

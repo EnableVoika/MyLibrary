@@ -1,4 +1,4 @@
-package com.voika.service.adjust.po;
+package com.voika.dao.adjust.po;
 
 import lombok.Data;
 

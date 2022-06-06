@@ -76,6 +76,8 @@ export default {
                     ElMessage.success(resp.msg);
                     localStorage.setItem("ms_username", this.userobj.username);
                     localStorage.setItem("Authorization", resp.data.token);
+                    localStorage.setItem('roles',resp.data.roles)
+                    localStorage.setItem('alias',resp.data.alias)
                     //sessionStorage.setItem("Authorization",resp.data.token)
                     this.router.push("/");
                 } else {

@@ -4,8 +4,8 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.voika.dao.login.MLoginDao">
     <!-- 用户数据字典 -->
-    <select id="accountDir" parameterType="com.voika.controller.login.po.AccountPO"
-            resultType="com.voika.controller.login.po.AccountPO">
+    <select id="accountDir" parameterType="com.voika.dao.login.po.AccountPO"
+            resultType="com.voika.dao.login.po.AccountPO">
         select * from tb_account
         where deleted = 0
         <!-- id -->

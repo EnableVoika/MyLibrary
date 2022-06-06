@@ -1,7 +1,6 @@
 package com.voika.dao.login.repository;
 
-import com.voika.controller.login.po.AccountPO;
-import org.apache.ibatis.annotations.Param;
+import com.voika.dao.login.po.AccountPO;
 
 import java.util.List;
 import java.util.Set;

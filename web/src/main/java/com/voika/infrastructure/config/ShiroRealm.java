@@ -1,10 +1,8 @@
 package com.voika.infrastructure.config;
 
 import cn.hutool.core.collection.CollectionUtil;
-import cn.hutool.core.util.ObjectUtil;
-import com.voika.controller.login.po.AccountPO;
+import com.voika.dao.login.po.AccountPO;
 import com.voika.dao.login.repository.LoginRepository;
-import com.voika.service.login.LoginService;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -13,7 +11,7 @@ import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
-import org.springframework.context.annotation.DependsOn;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -26,6 +24,9 @@ public class ShiroRealm extends AuthorizingRealm {
 
     @Resource(name = "loginRepositoryImpl")
     private LoginRepository loginRepository;
+
+    @Resource(name = "stringRedisTemplate")
+    private StringRedisTemplate redisTemplate;
 
     @Override
     public String getName() {
@@ -56,6 +57,11 @@ public class ShiroRealm extends AuthorizingRealm {
         AccountPO account = accountList.get(0);
         if (StringUtil.isEmpty(account.getUsername())) {
             return null;
+        }
+        String alias = account.getAlias();
+        redisTemplate.opsForValue().set(username,"d0g_"+System.currentTimeMillis());
+        if (StringUtil.isNotEmpty(alias)) {
+            redisTemplate.opsForValue().set(username,alias);
         }
         SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(account.getUsername(), account.getPassword(), getName());
         return info;

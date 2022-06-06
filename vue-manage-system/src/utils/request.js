@@ -6,7 +6,7 @@ import router from '../router'
 const service = axios.create({
     // process.env.NODE_ENV === 'development' 来判断是否开发环境
     // easy-mock服务挂了，暂时不使用了
-    baseURL: 'http://localhost:56789/voika/',
+    baseURL: 'http://localhost:8080/voika/',
     timeout: 5000
 });
 
@@ -37,14 +37,14 @@ service.interceptors.response.use(
                 //localStorage.removeItem("Authorization")
                 //Message.error({message: '请求超时!'});
                 _Message.error({message: response.data.msg})
-                router.push('/dashboard')
+                //router.push('/403')
                 break;
             case 5001:
                 //localStorage.removeItem("ms_username")
                 // localStorage.removeItem("Authorization")
                 //Message.error({message: '请求超时!'});
                 _Message.error({message: response.data.msg})
-                router.push('/dashboard')
+                //router.push('/403')
                 break;
         }
         return response.data

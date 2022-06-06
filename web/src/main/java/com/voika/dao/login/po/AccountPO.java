@@ -1,4 +1,4 @@
-package com.voika.controller.login.po;
+package com.voika.dao.login.po;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,6 +14,7 @@ public class AccountPO {
     private Integer id;
     private String username;
     private String password;
+    private String alias;
     private Integer accountStatus;
     private Integer deleted;
 

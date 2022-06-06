@@ -100,7 +100,7 @@ export default {
                 pageTotal.value = res.pageTotal || 50;
             });
         };
-        getData();
+        //getData();
 
         // 查询操作
         const handleSearch = () => {

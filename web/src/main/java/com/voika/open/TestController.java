@@ -1,13 +1,12 @@
 package com.voika.open;
 
 import com.voika.infrastructure.JsonData;
-import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping
-@RequiresAuthentication
+//@RequiresAuthentication
 public class TestController {
 
     @RequestMapping("/test")

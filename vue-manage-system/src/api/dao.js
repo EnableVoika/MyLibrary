@@ -26,13 +26,24 @@ export default {
     // 退出登录
     loginout() {
         return request({
-            url:'http://localhost:56789/voika/login/loginout',
+            url:'login/loginout',
             method:'get',
             headers:{
                 'Authorization':localStorage.getItem('Authorization')
             }
         })
-    }
+    },
+
+    // 逻辑删除 TJ 记录
+    deleteAdjustInfo(id) {
+        return request({
+            url:`/furry/delete/${id}`,
+            method:'delete',
+            headers:{
+                'Authorization':localStorage.getItem('Authorization')
+            }
+        })
+    },
 }
 
 export const fetchData = query => {

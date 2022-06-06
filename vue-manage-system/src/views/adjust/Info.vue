@@ -50,14 +50,29 @@
                     </template>
                 </el-table-column>
                 <el-table-column prop="adjustedDog" label="奴隶名字"></el-table-column>
-                 <el-table-column prop="adjustContentValue" label="调教内容"></el-table-column>
-                 <el-table-column prop="adjustInfo" label="调教内容详细描述"></el-table-column>
+                <el-table-column
+                    prop="adjustContentValue"
+                    label="调教内容"
+                ></el-table-column>
+                <el-table-column
+                    prop="adjustInfo"
+                    label="调教内容详细描述"
+                ></el-table-column>
                 <el-table-column prop="adjustDatetime" label="调教时间"></el-table-column>
                 <el-table-column label="调教次数">
                     <template #default="scope">{{ scope.row.adjustCount }}</template>
                 </el-table-column>
                 <!-- <el-table-column prop="address" label="地点"></el-table-column> -->
-                 <el-table-column prop="effectivenessValue" label="本次调教是否有效"></el-table-column>
+                <el-table-column
+                    label="本次调教是否有效"
+                >
+                <template #default="scope">
+                    <div :class="scope.row.effectivenessValue==='有效'?'green'
+                    :scope.row.effectivenessValue==='待审批'?'orange'
+                    :scope.row.effectivenessValue==='无效'?'red':'orange'">
+                        {{ scope.row.effectivenessValue }}
+                    </div>
+                </template></el-table-column>
                 <!-- <el-table-column label="状态" align="center">
                     <template #default="scope">
                         <el-tag
@@ -84,9 +99,10 @@
                             type="text"
                             icon="el-icon-delete"
                             class="red"
-                            @click="handleDelete(scope.$index, scope.row)"
+                            @click="handleDelete(scope.row)"
                             >删除</el-button
                         >
+                        <!-- @click="handleDelete(scope.$index, scope.row)" -->
                     </template>
                 </el-table-column>
             </el-table>
@@ -126,11 +142,13 @@
 import { ref, reactive } from "vue";
 import { ElMessage, ElMessageBox } from "element-plus";
 import dao, { fetchData } from "../../api/dao";
+import { useRouter } from "vue-router";
 
 export default {
     data() {
         return {
-            tableData:[],
+            router: useRouter(),
+            tableData: [],
             condition: {
                 pageNum: 1,
                 pageSize: 5,
@@ -140,16 +158,60 @@ export default {
     methods: {
         fetchData() {
             dao.searchAdjustInfo(this.condition).then((resp) => {
-                if(resp.ref === false) {
+                if (resp.ref === false) {
                 }
-                this.tableData = resp.data
+                this.tableData = resp.data;
             });
         },
+        // 删除
+        handleDelete(row) {
+            // 二次确认删除
+            ElMessageBox.confirm("确定要删除吗？", "提示", {
+                type: "warning",
+            })
+                .then(() => {
+                    dao.deleteAdjustInfo(row.id).then((resp) => {
+                        if (resp.ref) {
+                            this.fetchData();
+                            ElMessage.success(resp.msg);
+                        } else {
+                            this.fetchData();
+                            ElMessage.error(resp.msg);
+                        }
+                    });
+                    //tableData.value.splice(index, 1);
+                })
+                .catch(() => {
+                    this.fetchData();
+                    ElMessage.warning("龙奴感谢陛下的仁慈");
+                });
+        },
     },
+    beforeCreate() {},
     created() {
-        
+        //this.router.push('/permission')
         // let token = localStorage.getItem("Authorization");
         // sessionStorage.setItem("Authorization", token);
+        let roles = localStorage.getItem("roles");
+        if (!roles) {
+            //this.router.push('/403')
+            this.router.push({
+                path: "/403",
+                query: {
+                    value: "您还不是furry，没有权限进行此操作",
+                },
+            });
+            return;
+        }
+        if (!roles.includes("furry")) {
+            this.router.push({
+                path: "/403",
+                query: {
+                    value: "您还不是furry，没有权限进行此操作",
+                },
+            });
+            return;
+        }
         this.fetchData();
     },
     name: "basetable",
@@ -169,7 +231,7 @@ export default {
                 pageTotal.value = res.pageTotal || 50;
             });
         };
-        getData();
+        // getData();
 
         // 查询操作
         const handleSearch = () => {
@@ -183,17 +245,28 @@ export default {
         };
 
         // 删除操作
-        const handleDelete = (index) => {
-            // 二次确认删除
-            ElMessageBox.confirm("确定要删除吗？", "提示", {
-                type: "warning",
-            })
-                .then(() => {
-                    ElMessage.success("删除成功");
-                    tableData.value.splice(index, 1);
-                })
-                .catch(() => {});
-        };
+        // const handleDelete = (index, row) => {
+        //     // 二次确认删除
+        //     ElMessageBox.confirm("确定要删除吗？", "提示", {
+        //         type: "warning",
+        //     })
+        //         .then(() => {
+        //             dao.deleteAdjustInfo(row.id).then((resp) => {
+        //                 if (resp.ref) {
+        //                     ElMessage.success(resp.msg);
+        //                     this.fetchData()
+        //                 }else {
+        //                     ElMessage.success("删除失败");
+        //                     this.fetchData()
+        //                 }
+        //             });
+        //             //tableData.value.splice(index, 1);
+        //         })
+        //         .catch(() => {
+        //             ElMessage.warning("龙奴感谢陛下的仁慈");
+        //             this.fetchData()
+        //         });
+        // };
 
         // 表格编辑时弹窗和保存
         const editVisible = ref(false);
@@ -225,7 +298,7 @@ export default {
             form,
             handleSearch,
             handlePageChange,
-            handleDelete,
+            //handleDelete,
             handleEdit,
             saveEdit,
         };
@@ -252,6 +325,12 @@ export default {
 }
 .red {
     color: #ff0000;
+}
+.orange {
+    color: orange;
+}
+.green {
+    color: green;
 }
 .mr10 {
     margin-right: 10px;

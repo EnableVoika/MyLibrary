@@ -28,8 +28,9 @@ public class AdjustInfoVO {
             case 9 : this.setAdjustContentValue("屁眼开发");break;
         }
         switch (this.getEffectiveness()) {
-            case 1 : this.setEffectivenessValue("有效");break;
             case 0 : this.setEffectivenessValue("无效");break;
+            case 1 : this.setEffectivenessValue("待审批");break;
+            case 2 : this.setEffectivenessValue("有效");break;
         }
     }
 
