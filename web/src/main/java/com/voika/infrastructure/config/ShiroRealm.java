@@ -59,9 +59,9 @@ public class ShiroRealm extends AuthorizingRealm {
             return null;
         }
         String alias = account.getAlias();
-        redisTemplate.opsForValue().set(username,"d0g_"+System.currentTimeMillis());
+        redisTemplate.opsForValue().set(username+"_alias","d0g_"+System.currentTimeMillis());
         if (StringUtil.isNotEmpty(alias)) {
-            redisTemplate.opsForValue().set(username,alias);
+            redisTemplate.opsForValue().set(username+"_alias",alias);
         }
         SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(account.getUsername(), account.getPassword(), getName());
         return info;
