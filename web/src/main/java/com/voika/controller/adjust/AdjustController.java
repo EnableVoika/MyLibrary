@@ -4,9 +4,11 @@ import com.voika.controller.adjust.dto.AdjustCondition;
 import com.voika.controller.adjust.vo.AdjustInfoVO;
 import com.voika.infrastructure.JsonData;
 import com.voika.service.adjust.AdjustService;
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.authz.annotation.RequiresRoles;
+import org.apache.shiro.subject.Subject;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -36,7 +38,7 @@ public class AdjustController {
     /**
      * 删除 TJ 记录
      */
-    @RequiresPermissions({"delete","update"})
+    @RequiresPermissions({"delete", "update"})
     @RequiresRoles("furry:master")
     @DeleteMapping("/delete/{id}")
     public JsonData deletedAdjustInfo(@PathVariable("id") Integer id) {
@@ -44,7 +46,22 @@ public class AdjustController {
             JsonData.error("id不能为空");
         }
         int i = adjustService.deletedAdjustInfo(id);
-        return i >0?JsonData.success("删除成功，给龙奴一个惊喜吧～！"):JsonData.error("龙奴感谢陛下的仁慈");
+        return i > 0 ? JsonData.success("删除成功，给龙奴一个惊喜吧～！") :
+                getUsername().equals("sin") ?
+                        JsonData.error("龙奴感谢sin主人的仁慈") :
+                        getUsername().equals("luni") ?
+                                JsonData.error("龙奴感谢陛下的仁慈") :
+                                JsonData.error("龙奴感谢主人的仁慈");
+    }
+
+    private Subject getSub() {
+        Subject subject = SecurityUtils.getSubject();
+        return subject;
+    }
+
+    private String getUsername() {
+        String username = (String) getSub().getPrincipal();
+        return username;
     }
 
 }

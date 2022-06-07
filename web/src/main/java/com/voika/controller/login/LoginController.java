@@ -66,6 +66,7 @@ public class LoginController {
         Subject subject = SecurityUtils.getSubject();
         String username = (String) subject.getPrincipal();
         String alias = redisTemplate.opsForValue().get(username);
+        redisTemplate.delete(username);
         subject.logout();
         return JsonData.success(alias + "已退出登录");
     }

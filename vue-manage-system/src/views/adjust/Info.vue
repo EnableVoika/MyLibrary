@@ -192,26 +192,26 @@ export default {
         //this.router.push('/permission')
         // let token = localStorage.getItem("Authorization");
         // sessionStorage.setItem("Authorization", token);
-        let roles = localStorage.getItem("roles");
-        if (!roles) {
-            //this.router.push('/403')
-            this.router.push({
-                path: "/403",
-                query: {
-                    value: "您还不是furry，没有权限进行此操作",
-                },
-            });
-            return;
-        }
-        if (!roles.includes("furry")) {
-            this.router.push({
-                path: "/403",
-                query: {
-                    value: "您还不是furry，没有权限进行此操作",
-                },
-            });
-            return;
-        }
+       // let roles = localStorage.getItem("roles");
+        // if (!roles) {
+        //     //this.router.push('/403')
+        //     this.router.push({
+        //         path: "/403",
+        //         query: {
+        //             value: "您还不是furry，没有权限进行此操作",
+        //         },
+        //     });
+        //     return;
+        // }
+        // if (!roles.includes("furry")) {
+        //     this.router.push({
+        //         path: "/403",
+        //         query: {
+        //             value: "您还不是furry，没有权限进行此操作",
+        //         },
+        //     });
+        //     return;
+        // }
         this.fetchData();
     },
     name: "basetable",

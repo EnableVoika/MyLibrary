@@ -349,7 +349,7 @@ export default {
                 title: "支持作者",
             },
         ];
-
+        const items = [];
         const route = useRoute();
 
         const onRoutes = computed(() => {

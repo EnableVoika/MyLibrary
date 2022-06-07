@@ -43,7 +43,7 @@ import { useStore } from "vuex";
 import { useRouter } from "vue-router";
 import { ElMessage } from "element-plus";
 import dao from "../api/dao";
-import _Message from 'element-plus/lib/el-message';
+import _Message from "element-plus/lib/el-message";
 
 export default {
     created() {},
@@ -69,22 +69,23 @@ export default {
     },
     methods: {
         login() {
-            dao.login(this.userobj).then((resp) => {
-                //console.log("dasddadaadsd");
-                //console.log(resp.data);
-                if (resp.ref == true) {
-                    ElMessage.success(resp.msg);
-                    localStorage.setItem("ms_username", this.userobj.username);
-                    localStorage.setItem("Authorization", resp.data.token);
-                    localStorage.setItem('roles',resp.data.roles)
-                    localStorage.setItem('alias',resp.data.alias)
-                    //sessionStorage.setItem("Authorization",resp.data.token)
-                    this.router.push("/");
-                } else {
-                    ElMessage.error(resp.msg);
-                    return false;
-                }
-            });
+            dao.login(this.userobj)
+                .then((resp) => {
+                    //console.log("dasddadaadsd");
+                    //console.log(resp.data);
+                    if (resp.ref == true) {
+                        ElMessage.success(resp.msg);
+                        localStorage.setItem("ms_username", this.userobj.username);
+                        localStorage.setItem("Authorization", resp.data.token);
+                        localStorage.setItem("roles", resp.data.roles);
+                        localStorage.setItem("alias", resp.data.alias);
+                        //sessionStorage.setItem("Authorization",resp.data.token)
+                        this.router.push("/");
+                    } else {
+                        ElMessage.error(resp.msg);
+                        return false;
+                    }
+                })
         },
     },
     created() {

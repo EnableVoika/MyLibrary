@@ -6,18 +6,20 @@ import router from '../router'
 const service = axios.create({
     // process.env.NODE_ENV === 'development' 来判断是否开发环境
     // easy-mock服务挂了，暂时不使用了
-    baseURL: 'http://localhost:8080/voika/',
+    //baseURL: 'http://localhost:8080/voika/',
+    baseURL: 'http://124.221.243.242:56789/voika/',
     timeout: 5000
 });
 
 service.interceptors.request.use(
     config => {
         // config.headers['Authorization'] = localStorage.getItem('Authorization')
+        // console.log(config)
         return config;
     },
     error => {
-        console.log(error);
-        return Promise.reject();
+        //console.log(error);
+        return Promise.reject(error);
     }
 );
 
@@ -59,6 +61,7 @@ service.interceptors.response.use(
         // }
         //console.log(error);
         //return Promise.reject(error)
+        _Message.error({ message: "网络或者服务器异常" });
     }
 );
 
