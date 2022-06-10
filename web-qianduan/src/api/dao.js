@@ -44,6 +44,30 @@ export default {
             }
         })
     },
+
+    // 查询资金
+    searchMoney(condition) {
+        return request({
+            url:'/family/search/condition',
+            method:'post',
+            data:condition,
+            headers:{
+                'Authorization':localStorage.getItem('Authorization')
+            }
+        })
+    },
+
+    // 创建资金记录
+    insertMoneyInfo(condition) {
+        return request({
+            url:'/family/create/moneyinfo',
+            method:'post',
+            data:condition,
+            headers:{
+                'Authorization':localStorage.getItem('Authorization')
+            }
+        })
+    }
 }
 
 export const fetchData = query => {

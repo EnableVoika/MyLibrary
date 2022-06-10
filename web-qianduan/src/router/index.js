@@ -28,6 +28,15 @@ const routes = [
                 component: () => import( /* webpackChunkName: "dashboard" */ "../views/adjust/Info.vue")
             },
             {
+                path: "/family/statistics/money",
+                name: "statistics",
+                meta: {
+                    title: '家庭',
+                    permission: false
+                },
+                component: () => import( /* webpackChunkName: "dashboard" */ "../views/gl/Info.vue")
+            },
+            {
                 path: "/table",
                 name: "basetable",
                 meta: {
